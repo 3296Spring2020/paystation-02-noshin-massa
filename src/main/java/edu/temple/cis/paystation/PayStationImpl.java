@@ -1,5 +1,3 @@
-package paystation.domain;
-
 /**
  * Implementation of the pay station.
  *
@@ -19,6 +17,9 @@ package paystation.domain;
  * implied. You may study, use, modify, and distribute it for non-commercial
  * purposes. For any commercial use, see http://www.baerbak.com/
  */
+
+package edu.temple.cis.paystation;
+
 public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
