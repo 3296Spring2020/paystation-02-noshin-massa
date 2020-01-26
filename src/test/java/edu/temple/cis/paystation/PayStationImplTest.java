@@ -141,16 +141,29 @@ public class PayStationImplTest {
     
     
     /**
-     * Verify that the machine can correctly reset its profits tracker,
-     * and that it correctly returns the profits made.
+     * Verify that a call to empty() correctly returns the machine's profits
+     * 
+     * @see edu.temple.cis.paystation.PayStation#empty()
      * @throws IllegalCoinException 
      */
     @Test
-    public void shouldEmpty() throws IllegalCoinException {
+    public void callToEmptyReturnsProfits() throws IllegalCoinException {
+        ps.cancel();
         ps.empty();
-        assertEquals("Paystation should've been emptied", 0, ps.readDisplay());
         ps.addPayment(10);
         ps.buy();
         assertEquals("Paystation should've made 10", 10, ps.empty());
+    }
+    
+    /**
+     * Verify call to empty empties the profit
+     * 
+     * @see edu.temple.cis.paystation.PayStation#empty()
+     */
+    @Test
+    public void callToEmptyClearsProfits() {
+        ps.cancel();    //in case something else was in progress
+        ps.empty();
+        assertEquals("Paystation should've been emptied", 0, ps.readDisplay());
     }
 }
