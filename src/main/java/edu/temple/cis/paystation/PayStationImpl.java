@@ -21,7 +21,7 @@
 package edu.temple.cis.paystation;
 
 public class PayStationImpl implements PayStation {
-    
+    //Test comment
     private int insertedSoFar;
     private int timeBought;
     private int totalMoneyMade;
