@@ -11,6 +11,7 @@
  */
 package edu.temple.cis.paystation;
 
+import java.util.Map;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -18,6 +19,22 @@ import org.junit.Before;
 public class PayStationImplTest {
 
     PayStation ps;
+
+    @org.junit.jupiter.api.BeforeAll
+    public static void setUpClass() throws Exception {
+    }
+
+    @org.junit.jupiter.api.AfterAll
+    public static void tearDownClass() throws Exception {
+    }
+
+    @org.junit.jupiter.api.BeforeEach
+    public void setUp() throws Exception {
+    }
+
+    @org.junit.jupiter.api.AfterEach
+    public void tearDown() throws Exception {
+    }
 
     @Before
     public void setup() {
@@ -165,5 +182,74 @@ public class PayStationImplTest {
         ps.cancel();    //in case something else was in progress
         ps.empty();
         assertEquals("Paystation should've been emptied", 0, ps.readDisplay());
+    }
+
+    /**
+     * Test of addPayment method, of class PayStationImpl.
+     */
+    @org.junit.jupiter.api.Test
+    public void testAddPayment() throws Exception {
+        System.out.println("addPayment");
+        int coinValue = 0;
+        PayStationImpl instance = new PayStationImpl();
+        instance.addPayment(coinValue);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of readDisplay method, of class PayStationImpl.
+     */
+    @org.junit.jupiter.api.Test
+    public void testReadDisplay() {
+        System.out.println("readDisplay");
+        PayStationImpl instance = new PayStationImpl();
+        int expResult = 0;
+        int result = instance.readDisplay();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of buy method, of class PayStationImpl.
+     */
+    @org.junit.jupiter.api.Test
+    public void testBuy() {
+        System.out.println("buy");
+        PayStationImpl instance = new PayStationImpl();
+        Receipt expResult = null;
+        Receipt result = instance.buy();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of cancel method, of class PayStationImpl.
+     */
+    @org.junit.jupiter.api.Test
+    public void testCancel() {
+        System.out.println("cancel");
+        PayStationImpl instance = new PayStationImpl();
+        Map<Integer, Integer> expResult = null;
+        Map<Integer, Integer> result = instance.cancel();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of empty method, of class PayStationImpl.
+     */
+    @org.junit.jupiter.api.Test
+    public void testEmpty() {
+        System.out.println("empty");
+        PayStationImpl instance = new PayStationImpl();
+        int expResult = 0;
+        int result = instance.empty();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }
