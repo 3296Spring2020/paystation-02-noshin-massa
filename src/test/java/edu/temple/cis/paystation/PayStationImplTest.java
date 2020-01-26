@@ -138,4 +138,19 @@ public class PayStationImplTest {
         assertEquals("Insert after cancel should work",
                 10, ps.readDisplay());
     }
+    
+    
+    /**
+     * Verify that the machine can correctly reset its profits tracker,
+     * and that it correctly returns the profits made.
+     * @throws IllegalCoinException 
+     */
+    @Test
+    public void shouldEmpty() throws IllegalCoinException {
+        ps.empty();
+        assertEquals("Paystation should've been emptied", 0, ps.readDisplay());
+        ps.addPayment(10);
+        ps.buy();
+        assertEquals("Paystation should've made 10", 10, ps.empty());
+    }
 }

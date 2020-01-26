@@ -45,6 +45,14 @@ public interface PayStation {
      * @return a valid parking receipt object.
      */
     public Receipt buy();
+    
+    /**
+     * Empties the machine.  Also resets the amount of money this machine has
+     * made back to zero.
+     * 
+     * @return the total money made by this machine before the reset.
+     */
+    public int empty();
 
     /**
      * Cancel the present transaction. Resets the machine for a new transaction.
