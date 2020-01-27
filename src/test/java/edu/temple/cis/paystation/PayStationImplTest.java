@@ -159,6 +159,8 @@ public class PayStationImplTest {
     /**
      * Verify that a call to empty() correctly returns the machine's profits
      * 
+     * Test #1 in list
+     * 
      * @see edu.temple.cis.paystation.PayStation#empty()
      * @throws IllegalCoinException 
      */
@@ -173,20 +175,10 @@ public class PayStationImplTest {
         assertEquals("Paystation should've made 10", 10, ps.empty());
     }
     
-    /**
-     * Verify call to empty empties the profit
-     * 
-     * @see edu.temple.cis.paystation.PayStation#empty()
-     */
-    @Test
-    public void callToEmptyClearsProfits() {
-        ps.cancel();    //in case something else was in progress
-        ps.empty();
-        assertEquals("Paystation should've been emptied", 0, ps.readDisplay());
-    }
-
-    /**
+        /**
      * Verify that a call to cancel doesn't result in incorrect profits
+     * 
+     * Test #2 in list
      * 
      * @throws IllegalCoinException
      */
@@ -202,5 +194,19 @@ public class PayStationImplTest {
         ps.cancel();
         int profits = ps.empty();
         assertEquals("Profits weren't properly calculated after cancel of purchase", 25, profits);
+    }
+    
+    /**
+     * Verify call to empty empties the profit
+     * 
+     * Test #3 in list
+     * 
+     * @see edu.temple.cis.paystation.PayStation#empty()
+     */
+    @Test
+    public void callToEmptyClearsProfits() {
+        ps.cancel();    //in case something else was in progress
+        ps.empty();
+        assertEquals("Paystation should've been emptied", 0, ps.readDisplay());
     }
 }
