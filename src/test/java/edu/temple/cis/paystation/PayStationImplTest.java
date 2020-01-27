@@ -192,6 +192,15 @@ public class PayStationImplTest {
      */
     @Test
     public void callToCancelDoesntAddToProfitsReturnedByEmpty() throws IllegalCoinException {
-        fail("Test not implemented");
+        //in case something is in progress 
+        ps.cancel();
+        ps.empty();
+        //start test
+        ps.addPayment(25);
+        ps.buy();
+        ps.addPayment(25);
+        ps.cancel();
+        int profits = ps.empty();
+        assertEquals("Profits weren't properly calculated after cancel of purchase", 25, profits);
     }
 }
