@@ -18,7 +18,7 @@ import org.junit.Before;
 public class PayStationImplTest {
 
     PayStation ps;
-
+    
     @Before
     public void setup() {
         ps = new PayStationImpl();
@@ -26,6 +26,8 @@ public class PayStationImplTest {
 
     /**
      * Entering 5 cents should make the display report 2 minutes parking time.
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldDisplay2MinFor5Cents()
@@ -37,6 +39,8 @@ public class PayStationImplTest {
 
     /**
      * Entering 25 cents should make the display report 10 minutes parking time.
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldDisplay10MinFor25Cents() throws IllegalCoinException {
@@ -47,6 +51,8 @@ public class PayStationImplTest {
 
     /**
      * Verify that illegal coin values are rejected.
+     * 
+     * @throws IllegalCoinException
      */
     @Test(expected = IllegalCoinException.class)
     public void shouldRejectIllegalCoin() throws IllegalCoinException {
@@ -55,6 +61,8 @@ public class PayStationImplTest {
 
     /**
      * Entering 10 and 25 cents should be valid and return 14 minutes parking
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldDisplay14MinFor10And25Cents()
@@ -67,6 +75,8 @@ public class PayStationImplTest {
 
     /**
      * Buy should return a valid receipt of the proper amount of parking time
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldReturnCorrectReceiptWhenBuy()
@@ -84,6 +94,8 @@ public class PayStationImplTest {
 
     /**
      * Buy for 100 cents and verify the receipt
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldReturnReceiptWhenBuy100c()
@@ -103,6 +115,8 @@ public class PayStationImplTest {
 
     /**
      * Verify that the pay station is cleared after a buy scenario
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldClearAfterBuy()
@@ -126,6 +140,8 @@ public class PayStationImplTest {
 
     /**
      * Verify that cancel clears the pay station
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldClearAfterCancel()
@@ -143,20 +159,47 @@ public class PayStationImplTest {
     /**
      * Verify that a call to empty() correctly returns the machine's profits
      * 
+     * Test #1 in list
+     * 
      * @see edu.temple.cis.paystation.PayStation#empty()
      * @throws IllegalCoinException 
      */
     @Test
     public void callToEmptyReturnsProfits() throws IllegalCoinException {
+        //in case something else was happening
         ps.cancel();
         ps.empty();
+        //start test
         ps.addPayment(10);
         ps.buy();
         assertEquals("Paystation should've made 10", 10, ps.empty());
     }
     
+        /**
+     * Verify that a call to cancel doesn't result in incorrect profits
+     * 
+     * Test #2 in list
+     * 
+     * @throws IllegalCoinException
+     */
+    @Test
+    public void callToCancelDoesntAddToProfitsReturnedByEmpty() throws IllegalCoinException {
+        //in case something is in progress 
+        ps.cancel();
+        ps.empty();
+        //start test
+        ps.addPayment(25);
+        ps.buy();
+        ps.addPayment(25);
+        ps.cancel();
+        int profits = ps.empty();
+        assertEquals("Profits weren't properly calculated after cancel of purchase", 25, profits);
+    }
+    
     /**
      * Verify call to empty empties the profit
+     * 
+     * Test #3 in list
      * 
      * @see edu.temple.cis.paystation.PayStation#empty()
      */
