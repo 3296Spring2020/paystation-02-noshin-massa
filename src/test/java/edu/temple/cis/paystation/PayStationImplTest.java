@@ -11,7 +11,6 @@
  */
 package edu.temple.cis.paystation;
 
-import java.util.Map;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -19,23 +18,7 @@ import org.junit.Before;
 public class PayStationImplTest {
 
     PayStation ps;
-
-    @org.junit.jupiter.api.BeforeAll
-    public static void setUpClass() throws Exception {
-    }
-
-    @org.junit.jupiter.api.AfterAll
-    public static void tearDownClass() throws Exception {
-    }
-
-    @org.junit.jupiter.api.BeforeEach
-    public void setUp() throws Exception {
-    }
-
-    @org.junit.jupiter.api.AfterEach
-    public void tearDown() throws Exception {
-    }
-
+    
     @Before
     public void setup() {
         ps = new PayStationImpl();
@@ -43,6 +26,8 @@ public class PayStationImplTest {
 
     /**
      * Entering 5 cents should make the display report 2 minutes parking time.
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldDisplay2MinFor5Cents()
@@ -54,6 +39,8 @@ public class PayStationImplTest {
 
     /**
      * Entering 25 cents should make the display report 10 minutes parking time.
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldDisplay10MinFor25Cents() throws IllegalCoinException {
@@ -64,6 +51,8 @@ public class PayStationImplTest {
 
     /**
      * Verify that illegal coin values are rejected.
+     * 
+     * @throws IllegalCoinException
      */
     @Test(expected = IllegalCoinException.class)
     public void shouldRejectIllegalCoin() throws IllegalCoinException {
@@ -72,6 +61,8 @@ public class PayStationImplTest {
 
     /**
      * Entering 10 and 25 cents should be valid and return 14 minutes parking
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldDisplay14MinFor10And25Cents()
@@ -84,6 +75,8 @@ public class PayStationImplTest {
 
     /**
      * Buy should return a valid receipt of the proper amount of parking time
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldReturnCorrectReceiptWhenBuy()
@@ -101,6 +94,8 @@ public class PayStationImplTest {
 
     /**
      * Buy for 100 cents and verify the receipt
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldReturnReceiptWhenBuy100c()
@@ -120,6 +115,8 @@ public class PayStationImplTest {
 
     /**
      * Verify that the pay station is cleared after a buy scenario
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldClearAfterBuy()
@@ -143,6 +140,8 @@ public class PayStationImplTest {
 
     /**
      * Verify that cancel clears the pay station
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void shouldClearAfterCancel()
@@ -165,8 +164,10 @@ public class PayStationImplTest {
      */
     @Test
     public void callToEmptyReturnsProfits() throws IllegalCoinException {
+        //in case something else was happening
         ps.cancel();
         ps.empty();
+        //start test
         ps.addPayment(10);
         ps.buy();
         assertEquals("Paystation should've made 10", 10, ps.empty());
@@ -185,71 +186,12 @@ public class PayStationImplTest {
     }
 
     /**
-     * Test of addPayment method, of class PayStationImpl.
+     * Verify that a call to cancel doesn't result in incorrect profits
+     * 
+     * @throws IllegalCoinException
      */
-    @org.junit.jupiter.api.Test
-    public void testAddPayment() throws Exception {
-        System.out.println("addPayment");
-        int coinValue = 0;
-        PayStationImpl instance = new PayStationImpl();
-        instance.addPayment(coinValue);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of readDisplay method, of class PayStationImpl.
-     */
-    @org.junit.jupiter.api.Test
-    public void testReadDisplay() {
-        System.out.println("readDisplay");
-        PayStationImpl instance = new PayStationImpl();
-        int expResult = 0;
-        int result = instance.readDisplay();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of buy method, of class PayStationImpl.
-     */
-    @org.junit.jupiter.api.Test
-    public void testBuy() {
-        System.out.println("buy");
-        PayStationImpl instance = new PayStationImpl();
-        Receipt expResult = null;
-        Receipt result = instance.buy();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of cancel method, of class PayStationImpl.
-     */
-    @org.junit.jupiter.api.Test
-    public void testCancel() {
-        System.out.println("cancel");
-        PayStationImpl instance = new PayStationImpl();
-        Map<Integer, Integer> expResult = null;
-        Map<Integer, Integer> result = instance.cancel();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of empty method, of class PayStationImpl.
-     */
-    @org.junit.jupiter.api.Test
-    public void testEmpty() {
-        System.out.println("empty");
-        PayStationImpl instance = new PayStationImpl();
-        int expResult = 0;
-        int result = instance.empty();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @Test
+    public void callToCancelDoesntAddToProfitsReturnedByEmpty() throws IllegalCoinException {
+        fail("Test not implemented");
     }
 }

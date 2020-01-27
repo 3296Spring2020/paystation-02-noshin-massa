@@ -42,10 +42,11 @@ import java.util.Map;
  * implied. You may study, use, modify, and distribute it for non-commercial
  * purposes. For any commercial use, see http://www.baerbak.com/
  */
- public abstract class PayStationImpl implements PayStation {
+ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
+    private int totalProfits;
     private int nickels, dimes, quarters;
     private Map<Integer, Integer> map = new HashMap<>();
     //private RateStrategy rateStrategy; 
@@ -65,7 +66,8 @@ import java.util.Map;
             default:
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
-        
+        insertedSoFar += coinValue;
+        timeBought = insertedSoFar / 5 * 2;
     }
 
     @Override
@@ -76,6 +78,7 @@ import java.util.Map;
     @Override
     public Receipt buy() {
         Receipt r = new ReceiptImpl(timeBought);
+        totalProfits += insertedSoFar;
         reset();
         return r;
     }
@@ -93,16 +96,17 @@ import java.util.Map;
     
     private void reset() {
         timeBought = insertedSoFar = 0;
-        nickels =0;
-        dimes =0;
+        nickels = 0;
+        dimes = 0;
         quarters = 0; 
         map.clear(); 
     }
     
     @Override
     public int empty(){
-        int totalAmount = insertedSoFar;
+        int earned = totalProfits;
+        totalProfits = 0;
         reset();
-        return totalAmount; 
+        return earned;
     }
 }
