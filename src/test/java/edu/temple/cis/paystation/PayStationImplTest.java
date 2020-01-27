@@ -14,6 +14,7 @@ package edu.temple.cis.paystation;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import java.util.*;
 
 public class PayStationImplTest {
 
@@ -213,5 +214,38 @@ public class PayStationImplTest {
     
     
     
+     
+     /**
+     * Verify that cancel clears the map
+     */
+    @Test
+    public void clearMapOnCancel() throws IllegalCoinException {
+        Map<Integer, Integer> map;
+        map = new HashMap<>();
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        ps.cancel();
+        map = ps.cancel();
+        int size;
+        size = map.size();
+        assertEquals("Map has no keys after cancel.", 0,size);
+    }
+    
+    /**
+     * Verify that buying time clears the map
+     */
+    @Test
+    public void clearMapOnBuy() throws IllegalCoinException {
+        Map<Integer, Integer> map = new HashMap<>();
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        ps.buy();
+        map = ps.cancel();
+        int mapSize;
+        mapSize = map.size();
+        assertEquals("Map has no keys after buying time.", 0, mapSize);
+    }
     
 }
