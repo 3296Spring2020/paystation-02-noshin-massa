@@ -228,7 +228,7 @@ public class PayStationImplTest {
      */
     @Test
     public void clearMapOnCancel() throws IllegalCoinException {
-        Map<Integer, Integer> map;
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         ps.addPayment(5);
         ps.addPayment(10);
         ps.addPayment(25);
@@ -256,5 +256,44 @@ public class PayStationImplTest {
         mapSize = map.size();
         assertEquals("Map has no keys after buying time.", 0, mapSize);
     }
+    
+    
+    /**
+     * Verify that the map doesn't contain a key for a coin not entered
+     */
+    @Test
+    public void NoCoinKey () throws IllegalCoinException {
+         ps.addPayment(10);
+         ps.addPayment(5);
+         Map<Integer, Integer> ret = ps.cancel();
+        assertTrue("Does not contain quarter ", !ret.containsKey(25));         
+    }
+    
+    /**
+     * Verify that the map contains a mixture of coins
+     */
+    @Test
+    public void MixtureOfCoins() throws IllegalCoinException {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(10, 2);
+        map.put(5,1);
+        
+        ps.addPayment(10);
+        ps.addPayment(10);
+        ps.addPayment(5);
+       
+        Map<Integer, Integer> ret = ps.cancel();
+        
+        assertEquals("Maps are equal", ret, map);
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
     
 }

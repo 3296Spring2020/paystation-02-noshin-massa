@@ -21,7 +21,9 @@
 package edu.temple.cis.paystation;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Implementation of the pay station.
@@ -49,22 +51,32 @@ import java.util.Map;
     private int totalProfits;
     private int nickels, dimes, quarters;
     private Map<Integer, Integer> map = new HashMap<>();
-    //private RateStrategy rateStrategy; 
+    
+    private HashSet<Integer> legalCoins = new HashSet();
+    
+    public PayStationImpl(){
+        initLegalCoins();
+    }
+    
+    private void initLegalCoins(){
+        legalCoins.add(25);
+        legalCoins.add(10);
+        legalCoins.add(5);
+    }
+    
 
     
 
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
-        switch (coinValue) {
-            case 5: 
-               break;
-            case 10: 
-                break;
-            case 25: 
-                break;
-            default:
-                throw new IllegalCoinException("Invalid coin: " + coinValue);
+        if(!legalCoins.contains(coinValue)){
+            throw new IllegalCoinException("Invalid coin: " + coinValue);
+        }
+        if(!map.containsKey(coinValue)){
+            map.put(coinValue, 1);
+        } else {
+            map.put(coinValue, map.get(coinValue) + 1);
         }
         insertedSoFar += coinValue;
         timeBought = insertedSoFar / 5 * 2;
