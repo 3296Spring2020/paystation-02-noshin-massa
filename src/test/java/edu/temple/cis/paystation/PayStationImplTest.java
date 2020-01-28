@@ -214,11 +214,17 @@ public class PayStationImplTest {
     /**
      * Verify a call to cancel returns at least one coin that was entered
      * 
+     * Test #4 in list
+     * 
      * @throws IllegalCoinException
      */
     @Test
-    public void callToCancelReturnsOneCoinEntered() {
-        fail("incomplete");
+    public void callToCancelReturnsOneCoinEntered() throws IllegalCoinException {
+        ps.cancel();
+        ps.buy();   //reset ps
+        ps.addPayment(25);
+        Map<Integer, Integer> m = ps.cancel();
+        assertEquals("Cancel should return coin entered.", 1, m.get(25).intValue());
     }
     
      /**
@@ -228,7 +234,7 @@ public class PayStationImplTest {
      */
     @Test
     public void clearMapOnCancel() throws IllegalCoinException {
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> map;
         ps.addPayment(5);
         ps.addPayment(10);
         ps.addPayment(25);
@@ -288,12 +294,5 @@ public class PayStationImplTest {
         
         
     }
-    
-    
-    
-    
-    
-    
-    
     
 }
