@@ -220,8 +220,7 @@ public class PayStationImplTest {
      */
     @Test
     public void clearMapOnCancel() throws IllegalCoinException {
-        Map<Integer, Integer> map;
-        map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         ps.addPayment(5);
         ps.addPayment(10);
         ps.addPayment(25);
@@ -257,7 +256,7 @@ public class PayStationImplTest {
          ps.addPayment(10);
          ps.addPayment(5);
          Map<Integer, Integer> ret = ps.cancel();
-        assertTrue("", !ret.containsKey(25));         
+        assertTrue("Does not contain quarter ", !ret.containsKey(25));         
     }
     
     /**
