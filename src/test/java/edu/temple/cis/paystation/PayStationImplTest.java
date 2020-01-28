@@ -176,7 +176,7 @@ public class PayStationImplTest {
         assertEquals("Paystation should've made 10", 10, ps.empty());
     }
     
-        /**
+    /**
      * Verify that a call to cancel doesn't result in incorrect profits
      * 
      * Test #2 in list
@@ -211,17 +211,24 @@ public class PayStationImplTest {
         assertEquals("Paystation should've been emptied", 0, ps.readDisplay());
     }
     
+    /**
+     * Verify a call to cancel returns at least one coin that was entered
+     * 
+     * @throws IllegalCoinException
+     */
+    @Test
+    public void callToCancelReturnsOneCoinEntered() {
+        fail("incomplete");
+    }
     
-    
-    
-     
      /**
      * Verify that cancel clears the map
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void clearMapOnCancel() throws IllegalCoinException {
         Map<Integer, Integer> map;
-        map = new HashMap<>();
         ps.addPayment(5);
         ps.addPayment(10);
         ps.addPayment(25);
@@ -234,10 +241,12 @@ public class PayStationImplTest {
     
     /**
      * Verify that buying time clears the map
+     * 
+     * @throws IllegalCoinException
      */
     @Test
     public void clearMapOnBuy() throws IllegalCoinException {
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> map;
         ps.addPayment(5);
         ps.addPayment(10);
         ps.addPayment(25);
